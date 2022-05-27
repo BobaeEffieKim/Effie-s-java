@@ -1,4 +1,4 @@
-package com.yedam.java.example1;
+package com.yedam.java.example1; //구조라도 파악하기!
 //새로운 방식 -> 위에서 아래로 내려오는 형식
 
 import java.util.Scanner;
