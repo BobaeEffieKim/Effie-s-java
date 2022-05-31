@@ -16,3 +16,19 @@ public interface BookProgram {
 	//분석
 	public void printRepot(BookAccess access);
 }
+
+
+////교수님 풀이
+//public interface BookProgram{
+//	//메뉴 출력
+//	void menuPrint();
+//	//정보 입력
+//	void inputInfo();
+//	//입력된 전체정보를 출력
+//	void printAllInfo();
+//	//특정 조건의 정보를 출력
+//	void printInfo();
+//	//분석
+//	void printRepo();
+//	
+//}
