@@ -25,10 +25,10 @@ public class Y {
 	// 			  -> Y클래스의 정적 내부 멤버들만 호출할 수 있음.
 	static class C{
 		void method() {
-			field1 = 1;
+			//(오류) field1 = 1;
 			field2 = 2;
 			
-			method1();
+			//(오류) method1();
 			method2();
 		}
 	}
@@ -39,13 +39,13 @@ public class Y {
 //		var = 90;
 		class D {
 			void method() {
-				int result = arg + var;
+				//(오류) 		int result = arg + var;
 			}
 		}
 		D d = new D();
 		d.method();
 		var = 2;
-		return var;
+		//(오류) return var;
 	}
 	
 	

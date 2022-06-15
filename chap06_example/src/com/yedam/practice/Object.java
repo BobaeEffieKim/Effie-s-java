@@ -1,5 +1,5 @@
 package com.yedam.practice;
-main
+
 public class Object {
 	public static void main(String[] args) {
 
@@ -15,7 +15,7 @@ public class Object {
 	//-리턴값: 메소드가 실행되고 난 후 호출한 곳으로 돌려주는 값
 	
 	
-	int result = Calculator.add(10, 20);
+	//int result = Calculator.add(10, 20);
 	//전자계산기 객체에 연산자.을 사용하여 add라는 메소드를 호출했고, 메소드 실행을위해 매개값 10,20을 주어서 호출 후 정수형식을 가진 reseult라는 변수에 저장
 	
 	
@@ -39,22 +39,7 @@ public class Object {
 	
 	
 	//Student 클래스 선언 -> Student 클래스에 선언(라이브러리 클래스)
-	public class Student{
-	}
-	//Student 객체 생성 -> StudentExample 클래스에 메인메소드에서 객체 생성(실행클래스: 프로그램실행진입점인 메인메소드 제공역할)
-	Student s = new Student(); //-> student 클래스의 인스턴스
-	
-	//라이브러리와 실행 동시 클래스
-	public class Student{
-		
-		public static void main(String[] args) { //실행을 위한 코드
-			Student s1 = new Student();
-			System.out.println("클래스타입의 s1변수가 Student 객체를 참조합니다");
-			Student s2 = new Student();
-			System.out.println("변수 s2가 또다른 Student 객체를 참조합니다.");
-		}
-		
-	}
+//
 		//클래스의 구성멤버->객체가 가져야할 구성멤버
 	//필드 : 객체 고유의 데이터가 저장되는 곳 -> ex) int fieldname; 
 	//변수와 비슷해보이지만 변수는 생성자와 메소드내에서 실행되고 종료되면 소멸/ 필드는 생성자와 메소드 전체에 사용되며 소명되지않음

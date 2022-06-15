@@ -6,13 +6,13 @@ public class CardSystem {
 		
 		CardFactory factory = CardFactory.getInstance();
 		
-		Card first = factory.createCard();
-		Card second = factory.createCard();
-		Card third = factory.createCard();
+		//(오류) Card first = factory.createCard();
+		//(오류) Card second = factory.createCard();
+		//(오류) Card third = factory.createCard();
 		
-		System.out.println("first :"+first.getCardNo());
-		System.out.println("second :"+second.getCardNo());
-		System.out.println("third :"+third.getCardNo());
+		//(오류) System.out.println("first :"+first.getCardNo());
+		//(오류) System.out.println("second :"+second.getCardNo());
+		//(오류) System.out.println("third :"+third.getCardNo());
 		
 		
 
