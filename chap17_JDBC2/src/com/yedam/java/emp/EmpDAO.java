@@ -164,7 +164,7 @@ public class EmpDAO {
 		try {
 			connect();
 			
-			String sql = "INSERT INTO employees VALUE (?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO employees VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, emp.getEmployeeId());	
