@@ -52,7 +52,7 @@ public class ProductDAO extends DAO {
 		try {
 			connect();
 			
-			String sql = "UPDATE product SET product_orice = ? WHERE product_id = ?";
+			String sql = "UPDATE product SET product_price = ? WHERE product_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, product.getProductPrice());
 			pstmt.setInt(2, product.getProductId());
@@ -136,9 +136,18 @@ public class ProductDAO extends DAO {
 		
 		try {
 			connect();
-			String sql = "SELECT * FROM product WHERE  product_name="+productName;
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
+//			//stmt 사용
+//			String sql = "SELECT * FROM product WHERE  product_name='"+productName+"'";
+//			stmt = conn.createStatement();
+//			rs = stmt.executeQuery(sql);
+//			
+			String sql = "SELECT * FROM product WHERE  product_name=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, productName);
+			rs = pstmt.executeQuery();
+			
+			//반환되는 값을 하나만 실행할때는 if사용 -> 원래 이렇게하지만 이렇게쓰면 코드가 복잡해지므로 while사용 
+			//while 쓰면 가장 마지막으로 등록된 값으로 쿼리가 실행됨
 			
 			while(rs.next()) {
 				pro = new Product();
