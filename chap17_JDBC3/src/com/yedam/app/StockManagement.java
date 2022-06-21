@@ -9,7 +9,9 @@ import com.yedam.app.history.History;
 import com.yedam.app.history.HistoryDAO;
 import com.yedam.app.product.Product;
 import com.yedam.app.product.ProductDAO;
-
+//사용자가 보는 것 , 사용자 클래스
+//dao : 대략적인 기능에 대해서 적어주기 VS 사용자 클래스 : 여러가지 문제상황 대비
+//ex. productIn() -> 등록된 제품인지 확인, 재고 있는지,,,,등등
 public class StockManagement {
 
 	private Scanner sc = new Scanner(System.in);
@@ -97,13 +99,15 @@ public class StockManagement {
 	}
 	
 	private void productIn() {
+			//발생할 수 있는 여러상황에 대비하여 만듦
 		//입고할 제품과 수량 입력
 		Info info = inputAmount();
 		
-		//기존에 등록되어있는 제품인지 확인
+		//기존에 등록되어있는 제품인지 확인 -> 단건 조회 했을때 나오면 된다(그 메소드참조해서 해석)
+		//변수에 담아줘야 쓸 수 있으니까 프로덕트 타입의 프로덕트변수 지정
 		Product product = pDao.selectOne(info.getProductName());
 		
-		if(product != null) {
+		if(product != null) {	//널이면 제품이 없는거니까 제품 등록해야함 -> -2번
 			//-1. 기존에 등록된 제품일 경우 입고처리
 			History history = new History();
 			history.setProductId(product.getProductId());
@@ -144,6 +148,7 @@ public class StockManagement {
 			history.setProductCategory(2);
 			history.setProductAmount(info.getProductAmount());
 		
+			//dB에 저장 
 			hDao.insert(history);
 		} else {
 			//-2. 각 조건이 만족되지 않는 경우 적합한 문구를 출력

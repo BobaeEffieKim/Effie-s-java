@@ -9,7 +9,8 @@ import java.util.Set;
 
 import com.yedam.app.common.DAO;
 import com.yedam.app.product.Product;
-
+//제품기반 입고 출고 내역 
+//dao : 대략적인 기능에 대해서 적어주기 VS 사용자 클래스 : 여러가지 문제상황 대비
 public class HistoryDAO extends DAO {
 
 	//싱글톤
@@ -39,7 +40,7 @@ public class HistoryDAO extends DAO {
 		
 			int result = pstmt.executeUpdate();
 			
-			if(result > 0) {
+			if(result > 0) {	//실행했을때 결과가 하나 이상이면 등록 완료
 				System.out.println("정상적으로 등록되었습니다.");
 			} else {
 				System.out.println("정상적으로 등록되지 않았습니다.");

@@ -1,5 +1,6 @@
 package com.yedam.app.history;
-
+//3번 히스토리 vo클래스 만들기
+	//출력문 안만들거면 투스트링 오버라이딩 안해도됨
 public class History {
 
 	private int productId;
