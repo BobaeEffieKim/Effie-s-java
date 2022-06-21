@@ -8,6 +8,15 @@ import com.yedam.app.common.DAO;
 
 public class ProductsDAO extends DAO {
 
+	//싱글톤
+	private static ProductsDAO productsDAO = null;
+	private ProductsDAO() {}
+	public static ProductsDAO getInstatnce() {
+		if(productsDAO == null) {
+			productsDAO = new ProductsDAO();
+		}return productsDAO;
+	}
+	
 	//등록
 	public void insert(Product product) {
 		try {
@@ -37,7 +46,7 @@ public class ProductsDAO extends DAO {
 	}
 	
 	//수정	- 재고
-	public void update(Product product) {
+	public void updateStock(Product product) {
 		try {
 			connect();
 			//쿼리문 
@@ -59,6 +68,38 @@ public class ProductsDAO extends DAO {
 		} finally {
 			disconnect();
 		}
+	}
+	
+	//수정 - 재고를 제외하고 이름과 가격에 대해서 수정할 수 있도록
+	public void updateInfo(Product product) {
+		try {
+			connect();
+			String sql = "UPDATE products "
+						+"SET product_name = ?,"
+						+" product_price = ? "
+						+"WHERE product_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, product.getProductName());
+			pstmt.setInt(2, product.getProductPrice());
+			pstmt.setInt(3, product.getProductId());
+			
+			int result = pstmt.executeUpdate();
+			
+			if(result > 0) {
+				System.out.println("정상적으로 수정되었습니다.");
+			} else {
+				System.out.println("정상적으로 수정되지 않았습니다.");
+			}
+			
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			disconnect();
+		}
+		
+		
 	}
 	
 	
