@@ -29,7 +29,7 @@ public class ReceivingGoodsDAO extends DAO {
 		try {
 			connect();
 			String sql = "INSERT INTO receiving_goods "
-						+ "(product_id, product_amount)"
+						+ "(product_id, product_amount) "
 						+ "VALUES (?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, info.getProductId());

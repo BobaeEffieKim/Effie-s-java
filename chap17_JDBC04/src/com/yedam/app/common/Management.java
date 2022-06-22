@@ -4,10 +4,10 @@ package com.yedam.app.common;
 
 import java.util.Scanner;
 
+import com.yedam.app.deal.ProductStockManagement;
 import com.yedam.app.deal.ReceivingGoodsDAO;
 import com.yedam.app.deal.TakeOutGoodsDAO;
 import com.yedam.app.products.ProductInfoManagement;
-import com.yedam.app.products.ProductStockManagement;
 import com.yedam.app.products.ProductsDAO;
 
 public class Management {
@@ -21,6 +21,10 @@ public class Management {
 	
 	//생성자 => run메소드로 변경
 	public void run() {
+		//권한 확인 
+			//롤 받아오기
+	
+		
 		while(true) {	
 			//와일문 안에 생성자 사용할때 -> 생성자가 종료될때까지 와일문 
 			//상속관계에 있을때 -> 생성자를 이용한 프로그램 실행은 어렵다 => 그래서 생성자였다가 run메소드로 바꿈
@@ -29,7 +33,7 @@ public class Management {
 			
 			int menuNo = menuSelect();
 			
-			if(menuNo == 1) {
+			if(menuNo == 1 ) {
 				//제품정보관리
 				new ProductInfoManagement();
 			} else if(menuNo == 2) {
@@ -38,6 +42,7 @@ public class Management {
 			} else if(menuNo == 9) {
 				//프로그램 종료
 				exit();
+				break;
 			} else {
 				showInputError();
 			}
@@ -47,8 +52,9 @@ public class Management {
 	//메소드
 	
 	protected void menuPrint() {
+	
 		System.out.println("===============================");
-		System.out.println("1.제품정보관리 | 2.제품재고관리 | 9.종료");
+		System.out.println("1.제품정보관리 2.제품재고관리 9.종료");
 		System.out.println("===============================");
 	}
 	
@@ -72,7 +78,17 @@ public class Management {
 	}
 	
 	
-	
+	protected boolean selectRole() {
+		int memberRole = LoginControl.getLoginInfo().getMemberRole();
+		
+		if(memberRole == 0) {
+			return true;
+		
+		} else {
+			return false;
+		}
+		
+	}
 	
 	
 	

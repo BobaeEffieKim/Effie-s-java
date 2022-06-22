@@ -1,5 +1,7 @@
 package com.yedam.app.products;
 
+import java.util.List;
+
 import com.yedam.app.common.Management;
 
 
@@ -18,22 +20,32 @@ public class ProductInfoManagement extends Management{
 
 	//제품에 대한 정보를 등록, 수정, 삭제
 	public ProductInfoManagement() {
+		//서브 프로그램 돌기전에 지금 로그인한 사람의 권환 확인
+		boolean role = selectRole();
+		
+		
 		while(true) {
-			menuPrint();
+			menuPrint(role);
 			
 			int menuNo = menuSelect();
-			
-			if(menuNo == 1) {
+				
+			if(menuNo == 1 && role) {
 				//제품 정보 등록
 				insertProductInfo();
 				
-			} else if(menuNo == 2) {
+			} else if(menuNo == 2 && role) {
 				//제품 정보 수정 - 가격
 				updateProductInfo();
 				
-			} else if(menuNo == 3) {
+			} else if(menuNo == 3 && role) {
 				//제품 정보 삭제
 				deleteProductInfo();
+				
+			} else if(menuNo == 4) {
+				selectOne();
+				
+			} else if(menuNo == 5) {
+				selectAll();
 				
 			} else if(menuNo == 9) {
 				//뒤로 가기
@@ -48,11 +60,20 @@ public class ProductInfoManagement extends Management{
 		}
 	}
 	
-	@Override
-	protected void menuPrint() {
-		System.out.println("===============================================");
-		System.out.println("1.제품 등록 | 2.제품정보 수정 | 3.제품정보 삭제 | 9.뒤로가기");
-		System.out.println("===============================================");
+
+	
+	protected void menuPrint(boolean role) {
+		String menu = "";
+		if(role) {
+			menu += "1.제품등록 "+ "2.제품수정 " + "3.제품삭제 ";
+		}
+		
+		menu += "4.제품검색 5.전체조회 9.뒤로가기";
+		
+		//해당메뉴 출력
+		System.out.println("====================================================================");
+		System.out.println(menu);
+		System.out.println("====================================================================");
 	}
 	
 	private void back() {
@@ -134,7 +155,7 @@ public class ProductInfoManagement extends Management{
 		//아래와 같이 기존의 정보는 들고 있고, 필요한것만 바꿔주고 수정하지않은 정보는 그대로 보존되도록 해줘야한다
 	private Product inputUpdateInfo(Product product) {
 		//이름
-		System.out.println("기존 > "+ product.getProductName());
+		System.out.println("기존 제품명> "+ product.getProductName());
 		System.out.print("수정(수정하지 않을 경우 0 입력) > " );
 		
 		String name = sc.nextLine();
@@ -144,7 +165,7 @@ public class ProductInfoManagement extends Management{
 		}
 	
 		//가격
-		System.out.println("기존 > " + product.getProductName());
+		System.out.println("기존 가격> " + product.getProductName());
 		System.out.print("수정(수정하지 않을 경우 -1 입력) > ");
 		
 		int price = Integer.parseInt(sc.nextLine());
@@ -153,5 +174,26 @@ public class ProductInfoManagement extends Management{
 			product.setProductPrice(price);
 		}
 		return product;
+	}
+	
+	private void selectOne() {
+		String productName = inputName();
+		
+		Product product = pDAO.selectOne(productName);
+		
+		if(product == null) {
+			System.out.println("등록된 제품이 아닙니다.");
+			return;
+		}
+		
+		System.out.println(product);
+	}
+	
+	private void selectAll() {
+		List<Product> list = pDAO.selectAll();
+		
+		for(Product product : list) {
+			System.out.println(product);
+		}
 	}
 }

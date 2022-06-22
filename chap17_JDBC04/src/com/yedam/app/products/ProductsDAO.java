@@ -22,8 +22,8 @@ public class ProductsDAO extends DAO {
 		try {
 			connect();
 			//쿼리문 -> 이번엔 컬럼 지정해보기
-			String sql = "INSERT INTO products (product_id, product_name, product_price) "
-						+ "VALUES(products_seq.nextval, ?, ?)";	//product_id는 시퀀스를 이용했었음
+			String sql = "INSERT INTO products (product_id, product_name, product_price ) "
+						+ "VALUES(product_seq.nextval, ?, ?)";	//product_id는 시퀀스를 이용했었음
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, product.getProductName());
@@ -50,8 +50,8 @@ public class ProductsDAO extends DAO {
 		try {
 			connect();
 			//쿼리문 
-			String sql = "UPDATE products SET product_stock " + product.getProductStock()
-						+ "WHERE product_id =?" + product.getProductId();
+			String sql = "UPDATE products SET product_stock =" + product.getProductStock()
+						+ " WHERE product_id =" + product.getProductId();
 			stmt = conn.createStatement();
 			
 			//제대로 실행되었는지 확인
@@ -173,7 +173,7 @@ public class ProductsDAO extends DAO {
 			connect();
 			
 			String sql = "SELECT*FROM products "
-						+ "ORDER BY product_id";
+						+ "ORDER BY product_id ";
 			
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);

@@ -29,7 +29,7 @@ public class TakeOutGoodsDAO extends DAO {
 		try {
 			connect();
 			String sql = "INSERT INTO take_out_goods "
-						+ "(product_id, product_amount)"
+						+ "(product_id, product_amount) "
 						+ "VALUES (?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, info.getProductId());
@@ -49,35 +49,37 @@ public class TakeOutGoodsDAO extends DAO {
 		}
 	}
 	
-	//단건조회	- 내역이 있는지 존재유무 확인
-	public boolean selectInfo(int productId) {
-		boolean isSelected = false;
-		
-		try {
-			connect();
-			
-			String sql = "SELECT COUNT(*) AS count "
-						+ "FROM take_out_goods "
-						+ "WHERE product_id = " + productId;
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			
-			if(rs.next()) {	//값이 존재하는지, 존재할때 그 값이 0보다 큰지  
-				if(rs.getInt("count") > 0) {	//count함수는 값이 없어도 0을 반환함
-					isSelected = true;
-				}
-			}
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disconnect();
-		}
-		
-		
-		return isSelected;
-	}
+	//단건조회	- 내역이 있는지 존재유무 확인\
+		//이 부분은 receiving_goods에만 있음 => 출고량이 있다면 이미 입고내역이 있다고 보기때문
+//	public boolean selectInfo(int productId) {
+//		boolean isSelected = false;
+//		
+//		try {
+//			connect();
+//			
+//			String sql = "SELECT COUNT(*) AS count "
+//						+ "FROM take_out_goods "
+//						+ "WHERE product_id = " + productId;
+//			stmt = conn.createStatement();
+//			rs = stmt.executeQuery(sql);
+//			
+//			if(rs.next()) {	//값이 존재하는지, 존재할때 그 값이 0보다 큰지  
+//				if(rs.getInt("count") > 0) {	//count함수는 값이 없어도 0을 반환함
+//					isSelected = true;
+//				}
+//			}
+//		} catch(SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			disconnect();
+//		}
+//		
+//		
+//		return isSelected;
+//	}
 	
 	//단건조회 - 출고수량 확인
+		//정해진양을 매개변수로 넘겨와서 
 	public int selectAmount(int productId) {
 		int amount = 0;
 		
@@ -113,9 +115,9 @@ public class TakeOutGoodsDAO extends DAO {
 		try {
 			connect();
 			
-			String sql = "SELECT r.deal_date, r.product_id, p.product_name, r.product_amount" 
-		               + " FROM products p JOIN take_out_goods r "
-		               + "ON p.product_id = r.product_id ORDER BY r.deal_date";
+			String sql = "SELECT t.deal_date, t.product_id, p.product_name, t.product_amount" 
+		               + " FROM products p JOIN take_out_goods t "
+		               + "ON p.product_id = t.product_id ORDER BY t.deal_date";
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -146,9 +148,9 @@ public class TakeOutGoodsDAO extends DAO {
 		try {
 			connect();
 			
-			String sql = "SELECT r.deal_date, r.product_id, p.product_name, r.product_amount FROM products p "
-						+ "JOIN take_out_goods r "
-						+"ON p.product_id = r.product_id WHERE deal_date = ? ORDER BY r.deal_date";
+			String sql = "SELECT t.deal_date, t.product_id, p.product_name, t.product_amount FROM products p "
+						+ "JOIN take_out_goods t "
+						+"ON p.product_id = t.product_id WHERE deal_date = ? ORDER BY t.deal_date";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setDate(1, dealDate);
@@ -181,9 +183,9 @@ public class TakeOutGoodsDAO extends DAO {
 		try {
 			connect();
 			
-			String sql = "SELECT r.deal_date, r.product_id, p.product_name, r.product_amount FROM products p "
-						+ "JOIN take_out_goods r "
-						+"ON p.product_id = r.product_id WHERE product_id = ? ORDER BY r.deal_date";
+			String sql = "SELECT t.deal_date, t.product_id, p.product_name, t.product_amount FROM products p "
+						+ "JOIN take_out_goods t "
+						+"ON p.product_id = t.product_id WHERE product_id = ? ORDER BY t.deal_date";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, productId);
